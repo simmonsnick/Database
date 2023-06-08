@@ -1,0 +1,184 @@
+CREATE TABLE Store
+( Storeid CHAR (2) NOT NULL,
+  Storename VARCHAR (15) NOT NULL,
+  Storezip INT NOT NULL,
+  Storephone INT NOT NULL,
+  PRIMARY KEY (Storeid)); 
+
+  insert into Store values ('10','Oakbrook Center','34435','7760943');
+  insert into Store values ('11','Lakewood Center', '35545','7789834');
+  insert into Store values ('12','Outdoor Sports','33994','5637859');
+  insert into Store values ('13','Gulf Wind Plaza','35667','5779874');
+  insert into Store values ('14','Market Square','35669','6215463');
+  insert into Store values ('15','Bass Pro Shops','35021','5434543');
+  insert into Store values ('16','Fresh Market','35121','2342452');
+  insert into Store values ('17','Amazon Center','34234','6536496');
+  insert into Store values ('18','Target Center','33945','5437834');
+  insert into Store values ('19','Capital Plaza','31223','3444532');
+
+  SELECT* FROM Store
+
+  CREATE TABLE Shipping
+	(
+	 Shippingid CHAR(5) NOT NULL,
+	 Shippingdate DATE NOT NULL,
+	 Shippingamount MONEY NOT NULL,
+	 PRIMARY KEY (Shippingid)
+	 );
+
+	 insert into Shipping values ('32578','9/11/22','$90');
+	 insert into Shipping values ('34532','4/12/22','$30');
+	 insert into Shipping values ('33267','6/13/23','$20');
+	 insert into Shipping values ('43342','5/14/22', '$80');
+	 insert into Shipping values ('45322','3/15/22','$70');
+	 insert into Shipping values ('54322','1/16/21','$25');
+	 insert into Shipping values ('66453','1/9/24','$35');
+	 insert into Shipping values ('43267','4/30/24','$40');
+	 insert into Shipping values ('63253','5/4/23','$95');
+	 insert into Shipping values ('52453','11/5/22','$75');
+
+	 SELECT* FROM Shipping
+
+  CREATE TABLE Customer
+  (Customerid CHAR(4) NOT NULL,
+   Customername VARCHAR(7) NOT NULL,
+   Customeremail VARCHAR(20) NOT NULL,
+   PRIMARY KEY (Customerid));
+
+   insert into Customer values ('1444','Luke','lukeA@gmail.com');
+   insert into Customer values ('1443','David','davidE@gmail.com');
+   insert into Customer values ('1441','Adam','adamT@gmail.com');
+   insert into Customer values ('1442','Tom','tomBV@gmail.com');
+   insert into Customer values ('1445','Micheal','michealV@gmail.com');
+   insert into Customer values ('1432','Will','willparker@gmail.com');
+   insert into Customer values ('1443','Brice','bconner@gmail.com');
+   insert into Customer values ('1455','Peter','peterparker@gmail.com');
+   insert into Customer values ('1487','Carlos','carlospaul@gmail.com');
+   insert into Customer values ('1467','Tony','tonystars@gmail.com');
+
+   SELECT* FROM Customer
+  
+  CREATE TABLE Parkinglot
+   (Parkinglotid CHAR(3) NOT NULL,
+    Customerid CHAR(4) NOT NULL,
+	Parkinglotcheckin TIME(2) NOT NULL,
+	Parkinglotarea VARCHAR(1) NOT NULL,
+	Parkinglotdate DATE NOT NULL,
+	PRIMARY KEY (Parkinglotid),
+	FOREIGN KEY (Customerid) REFERENCES Customer(Customerid)
+	);
+	alter table Parkinglot
+	alter column Parkinglotcheckin varchar(3);
+
+	insert into Parkinglot values ('940','1444','AM','A','3/11/20');
+	insert into Parkinglot values ('943','1443','AM','B','8/4/20');
+	insert into Parkinglot values ('942','1441','AM','C','7/3/21');
+	insert into Parkinglot values ('939','1442','PM','D','3/4/20');
+	insert into Parkinglot values ('949','1445','AM','A','1/2/19');
+	insert into Parkinglot values ('954','1432','PM','B','3/20/21');
+	insert into Parkinglot values ('922','1433','AM','C','1/20/22');
+	insert into Parkinglot values ('911','1455','PM','D','5/2/21');
+	insert into Parkinglot values ('933','1487','AM','D','6/7/19');
+	insert into Parkinglot values ('934','1467','PM','A','7/17/20');
+	
+    SELECT* FROM Parkinglot
+    
+
+  CREATE TABLE Employee
+  ( Employeeid CHAR(3) NOT NULL,
+   Storeid CHAR(2) NOT NULL,
+   Parkinglotid CHAR(3) NOT NULL,
+   EmployeeFirstname VARCHAR(7) NOT NULL,
+   EmployeeLastname VARCHAR(6) NOT NULL,
+   Employeemail VARCHAR(20) NOT NULL,
+   Employeephone INT NOT NULL,
+   PRIMARY KEY (Employeeid),
+	FOREIGN KEY (Parkinglotid) REFERENCES parkinglot(Parkinglotid),
+   FOREIGN KEY (Storeid) REFERENCES Store (Storeid));
+   --if you want phone number add this in
+   --alter table employee
+  -- alter column employeephone varchar(30)
+
+   insert into Employee values ('123','10','940','John','Carter','jccarter@gmail.com','3439845');
+   insert into Employee values ('233','11','943','Adam','Lewis','alewis@gmail.com','8424332');
+   insert into Employee values ('342','12','942','Casey','Otten','cotten@gmail','3214564');
+   insert into Employee values ('444','13','939','Patrick','Wilson','patwilson@gmail.com','2235467');
+   insert into Employee values ('555','14','949','Peter','Owens','pOwens@gmail.com','5195432');
+   insert into Employee values ('343','15','954','Garret','Adams','gadams@gmail.com','6344533');
+   insert into Employee values ('432','16','922','Earl','Miller', 'Emiller@gmail.com','7435463');
+   insert into Employee values ('455','17','911','Olivia','Lewis','Olewis@gmail.com','9835643');
+   insert into Employee values ('267','18','933', 'Marcus','Fisher','mfisher@gmail.com','4326753');
+   insert into Employee values ('333','19','934','Sarah','Conner','sconner@gmail.com','5654326');
+
+   SELECT * FROM Employee
+ 
+	 CREATE TABLE Product
+	 (Productid CHAR(4) NOT NULL,
+	  Storeid CHAR(2) NOT NULL,
+	  Productype VARCHAR(15) NOT NULL,
+	  Productdate DATE NOT NULL,
+	  Productprice MONEY NOT NULL,
+	  PRIMARY KEY (Productid),
+	  FOREIGN KEY (Storeid) REFERENCES Store(Storeid)
+	  );
+
+  insert into Product values ('4343','10','Polo Shirt','9/6/19','$55');
+  insert into Product values ('4243','11','Nintendo game','10/5/20','$70');
+  insert into Product values ('5439','12','Nike Shoes','1/5/20','$60');
+  insert into Product values ('5405','13','Baseball Cap','11/12/18','$20');
+  insert into Product values ('4433','14','Ice Coffee', '1/9/19','$25');
+  insert into Product values ('4445','15','Hunting Jacket','3/8/21','$75');
+  insert into Product values ('3425','16','Cold Brew Coffee','2/28/21','$15');
+  insert into Product values ('8532','17','Books','4/2/18','$90');
+  insert into Product values ('6534','18','Pants','9/3/20','$85');
+  insert into Product values ('6622','19','Board game','1/5/23','$40');
+
+  SELECT* FROM Product
+
+   CREATE TABLE  Transactions
+   (Cardid CHAR(4) NOT NULL,
+    Shippingid CHAR(5) NOT NULL,
+	CardNum CHAR(7) NOT NULL,
+	CardType VARCHAR(6) NOT NULL,
+	CardStatus VARCHAR(8)NOT NULL,
+	PRIMARY KEY(Cardid),
+	FOREIGN KEY (Shippingid) REFERENCES Shipping(Shippingid));
+
+	insert into Transactions values ('9832','32578','9874357','DEBIT','Complete');
+	insert into Transactions values ('4321','34532','6765543','DEBIT','Declined');
+	insert into Transactions values ('3253','33267','5783552','CREDIT','Declined');
+	insert into Transactions values ('4432','43342','6435623','DEBIT','Complete');
+	insert into Transactions values ('8776','45322','7653676','CREDIT','Complete');
+	insert into Transactions values ('5424','54322','3564325','CREDIT','Declined');
+	insert into Transactions values ('5122','66453','3647842','DEBIT','Complete');
+	insert into Transactions values ('5866','43267','6213432','CREDIT','Declined');
+	insert into Transactions values ('2322','63253','7753234','DEBIT','Complete');
+	insert into Transactions values ('6543','52453','5437853','DEBIT','Complete');
+
+	SELECT* FROM Transactions
+
+	CREATE TABLE  Securitys
+	(Securitysid CHAR(5) NOT NULL,
+    Parkinglotid CHAR(3) NOT NULL,
+	Securitysgender VARCHAR(6)NOT NULL,
+	Securitystype VARCHAR(11)NOT NULL,
+	PRIMARY KEY (Securitysid),
+    FOREIGN KEY (Parkinglotid) REFERENCES Parkinglot(Parkinglotid));
+	alter table Securitys
+	alter column Securitystype varchar(20) 
+
+	insert into Securitys values ('67745','910','Male','Local Police');
+	insert into Securitys values ('54564','943','Female','Patrol Guard');
+	insert into Securitys values ('67453','942','Female','Local Police');
+	insert into Securitys values ('78653','939', 'Male','Event Guard');
+	insert into Securitys values ('56234','949','Male','Local Police');
+	insert into Securitys values ('43664','954','Female','Patrol Guard');
+	insert into Securitys values ('38657','922','Male','Event Guard');
+	insert into Securitys values ('74456','911','Male','Local Police');
+	insert into Securitys values ('44532','933','Male','Local Police');
+	insert into Securitys values ('11345','934','Female','Local Police');
+
+	SELECT * FROM Securitys
+
+	SELECT Storeid,Storename,Storezip,Storephone
+	FROM Store
